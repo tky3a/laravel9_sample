@@ -69,5 +69,14 @@ or
 ./vendor/bin/sail npm run dev
 ```
 
+## middleware作成
+```
+./vendor/bin/sail artisan make:middleware SampleMiddleware
+```
+
+## マイグレーションとシーディングをやり直す
+```
+./vendor/bin/sail artisan migrate:fresh --seed
+```
 
 # laravel9_sample
