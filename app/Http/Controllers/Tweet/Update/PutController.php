@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Tweet\UpdateRequest;
 use App\Models\Tweet;
+use App\Services\TweetService;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class PutController extends Controller
 {
@@ -15,9 +17,12 @@ class PutController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(UpdateRequest $request)
+    public function __invoke(UpdateRequest $request, TweetService $tweetService)
     {
         $tweet = Tweet::where('id', $request->id())->firstOrFail();
+        if (!$tweetService->isOwnTweet($request->user()->id, $tweet->id)) {
+            throw new AccessDeniedHttpException();
+        }
         $tweet->content = $request->tweet();
         $tweet->save();
         return redirect()
