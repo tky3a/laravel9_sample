@@ -69,6 +69,11 @@ or
 ./vendor/bin/sail npm run dev
 ```
 
+## クラスベースコンポーネント作成
+```
+./vendor/bin/sail artisan make:component Tweet/Options
+```
+
 ## middleware作成
 ```
 ./vendor/bin/sail artisan make:middleware SampleMiddleware
