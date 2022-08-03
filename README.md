@@ -84,4 +84,14 @@ or
 ./vendor/bin/sail artisan migrate:fresh --seed
 ```
 
+## Mailableクラス作成　
+```
+./vendor/bin/sail artisan make:mail NewUserIntroduction
+```
+
+## mailのスタイルを変更したい場合に実行するコマンド
+```
+./vendor/bin/sail artisan vendor:publish --tag=laravel-mail
+```
+
 # laravel9_sample
