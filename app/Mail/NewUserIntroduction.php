@@ -34,6 +34,8 @@ class NewUserIntroduction extends Mailable
      */
     public function build()
     {
-        return $this->view('email.new_user_introduction');
+        // return $this->view('email.new_user_introduction');
+        // メールをマークダウン形式で送信
+        return $this->markdown('email.new_user_introduction');
     }
 }
