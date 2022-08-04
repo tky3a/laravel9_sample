@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Tweet;
+use Carbon\Carbon;
 
 class TweetService
 {
@@ -20,5 +21,14 @@ class TweetService
             return false;
         }
         return $tweet->user_id === $userId;
+    }
+
+    // 昨日〜今のつぶやきを返却するメソッド
+    public function countYesterdayTweets(): int
+    {
+        // echo '???????????';
+        return Tweet::whereDate('created_at', '>=', Carbon::yesterday()->toDateTimeString())
+            ->whereDate('created_at', '<', Carbon::today()->toDateTimeString())
+            ->count();
     }
 }
