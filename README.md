@@ -149,4 +149,29 @@ or
 ./vendor/bin/sail artisan make:model TweetImage --pivot
 ```
 
+## Unitテストファイル作成
+```
+./vendor/bin/sail artisan make:test Services/TweetServiceTest --unit
+```
+
+## ユニットテスト実行
+```
+// 個別
+./vendor/bin/sail test tests/Unit/Services/TweetServiceTest.php
+
+// 全体
+./vendor/bin/sail test
+```
+
+## テストでテスト用Mysqlを使えるようにする方法
+```
+参考：
+https://qiita.com/kiyoshi999/items/6ab1ae4b36274b63a0e3
+```
+
+## 環境変数をクリア
+```
+./vendor/bin/sail artisan config:clear
+```
+
 # laravel9_sample
