@@ -18,6 +18,10 @@
         <x-alert.error>{{ $message }}</x-alert.error>
       @enderror
 
+      @error('images.*')
+        <x-alert.error>{{ $message }}</x-alert.error>
+      @enderror
+
       <div class="flex flex-wrap justify-end">
         <x-element.button>つぶやく</x-element.button>
       </div>

@@ -55,4 +55,25 @@ class TweetService
             }
         });
     }
+
+    // つぶやき削除メソッド
+    public function deleteTweet(int $tweetId)
+    {
+        DB::transaction(function () use ($tweetId) {
+            $tweet = Tweet::where('id', $tweetId)->firstOrFail();
+            $tweet->images()->each(function ($image) use ($tweet) {
+                $filePath = 'public/images' . $image->name;
+                if (Storage::exists($filePath)) {
+                    // Storageから画像を削除
+                    Storage::delete($filePath);
+                }
+                // TweetとImageの紐付け削除
+                $tweet->images()->detach($image->id);
+                // imageレコード削除
+                $image->delete();
+            });
+            // tweetレコード削除
+            $tweet->delete();
+        });
+    }
 }
