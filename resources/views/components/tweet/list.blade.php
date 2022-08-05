@@ -16,7 +16,8 @@
             </div>
           </div>
           {{-- 改行コードを<br>に変換して表示 --}}
-          <p>{!! nl2br(e($tweet->content)) !!}</p>
+          <p class="text-gray-600">{!! nl2br(e($tweet->content)) !!}</p>
+          <x-tweet.images :images="$tweet->images"></x-tweet.images>
         </div>
       </li>
     @endforeach

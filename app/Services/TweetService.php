@@ -13,7 +13,7 @@ class TweetService
     public function getTweets()
     {
         // ソートして全件取得　（eloquent (クエリビルダ)を使うことでSQLでソートできていてるのでPHPでソートするより早い）
-        return Tweet::orderBy('created_at', 'DESC')->get();
+        return Tweet::with('images')->orderBy('created_at', 'DESC')->get();
     }
 
     // 自分のツイートかどうかを判定するメソッド
