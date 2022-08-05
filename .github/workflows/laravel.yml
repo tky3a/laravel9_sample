@@ -9,6 +9,17 @@ on:
 jobs:
   laravel-tests:
 
+      services:
+      mysql:
+        image: 'mysql/mysql-server:8.0'
+        ports:
+          - 3306:3306
+        env:
+            MYSQL_DATABASE: 'testing'
+            MYSQL_USER: '${env.DB_USERNAME}'
+            MYSQL_PASSWORD: '${env.DB_PASSWORD}'
+            MYSQL_ALLOW_EMPTY_PASSWORD: 1
+
     runs-on: ubuntu-latest
 
     steps:
