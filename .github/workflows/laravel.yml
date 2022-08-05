@@ -9,17 +9,6 @@ on:
 jobs:
   laravel-tests:
 
-      services:
-      mysql:
-        image: 'mysql/mysql-server:8.0'
-        ports:
-          - 3306:3306
-        env:
-            MYSQL_DATABASE: 'testing'
-            MYSQL_USER: '${env.DB_USERNAME}'
-            MYSQL_PASSWORD: '${env.DB_PASSWORD}'
-            MYSQL_ALLOW_EMPTY_PASSWORD: 1
-
     runs-on: ubuntu-latest
 
     steps:
@@ -37,10 +26,14 @@ jobs:
       run: chmod -R 777 storage bootstrap/cache
     - name: Create Database
       run: |
-        mkdir -p database
-        touch database/database.sqlite
+        sudo systemctl start mysql.service
+        mysql -uroot -h127.0.0.1 -proot -e 'CREATE DATABASE IF NOT EXISTS test;'
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
-        DB_CONNECTION: sqlite
-        DB_DATABASE: database/database.sqlite
+        DB_CONNECTION: testing
+        DB_TEST_HOST: 127.0.0.1
+        DB_TEST_PORT: 3306
+        DB_TEST_DATABASE: testing
+        DB_TEST_USERNAME: sail
+        DB_TEST_PASSWORD: password
       run: vendor/bin/phpunit
