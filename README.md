@@ -94,4 +94,59 @@ or
 ./vendor/bin/sail artisan vendor:publish --tag=laravel-mail
 ```
 
+## job作成コマンド
+```
+./vendor/bin/sail artisan make:job SampleJob
+```
+
+## Queue (Jobsテーブル作成)
+```
+// jobsテーブル作成
+./vendor/bin/sail artisan queue:table
+// マイグレート
+./vendor/bin/sail artisan migrate
+```
+
+## jobを保存と実行
+### jobの保存
+
+```
+// サーバに接続
+./vendor/bin/sail artisan tinker
+
+// jobsテーブルにdispatchしたjobを保存（確認用）
+\Bus::dispatch(new App\Jobs\SampleJob());
+
+```
+
+### jobの実行
+
+```
+// これが実行されたらjobsテーブルのjobが消えるはず　
+./vendor/bin/sail artisan queue:work
+```
+
+## Laravelのコマンドを作成（コマンドを作成して実行する機能のファイルを作成するコマンド）
+```
+// SampleCommandファイルを作成
+./vendor/bin/sail artisan make:command SampleCommand
+```
+
+コマンド一覧を表示
+```
+// これで作成したコマンド＋利用できるコマンドが確認できる
+./vendor/bin/sail artisan list
+```
+
+## スケジューラーの一覧を確認
+```
+./vendor/bin/sail artisan schedule:list
+```
+
+## 中間テーブル向けのモデル作成
+```
+// --pivotをつけて実行すると中間テーブル向けのモデルを作成できる
+./vendor/bin/sail artisan make:model TweetImage --pivot
+```
+
 # laravel9_sample
